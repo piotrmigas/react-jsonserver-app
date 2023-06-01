@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "concurrently \"vite\" \"npm run backend\"",
     "dev": "vite",
     "backend": "json-server --watch db.json --port 3001",
     "build": "tsc && vite build",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "concurrently": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.7",
