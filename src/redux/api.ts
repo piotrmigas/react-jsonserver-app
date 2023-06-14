@@ -1,15 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-  tagTypes: ['Tasks'],
+  tagTypes: ['Task'],
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/tasks' }),
   endpoints: (builder) => ({
     getTasks: builder.query<Task[], void>({
       query: () => '/',
-      providesTags: (result) =>
-        result
-          ? [...result.map(({ id }) => ({ type: 'Tasks' as const, id })), { type: 'Tasks', id: 'LIST' }]
-          : [{ type: 'Tasks', id: 'LIST' }],
+      providesTags: ['Task'],
     }),
     addTask: builder.mutation<Task, { text: string; day: string; reminder: boolean }>({
       query: (body) => ({
@@ -17,7 +14,7 @@ export const api = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Tasks'],
+      invalidatesTags: ['Task'],
     }),
     deleteTask: builder.mutation<Task, number>({
       query: (id) => ({
@@ -25,7 +22,7 @@ export const api = createApi({
         method: 'DELETE',
         body: id,
       }),
-      invalidatesTags: ['Tasks'],
+      invalidatesTags: ['Task'],
     }),
     toggleTask: builder.mutation<Task, Task>({
       query: (task) => {
@@ -36,7 +33,7 @@ export const api = createApi({
           body: updTask,
         };
       },
-      invalidatesTags: ['Tasks'],
+      invalidatesTags: ['Task'],
     }),
   }),
 });
